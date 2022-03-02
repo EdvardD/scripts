@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# Command to compile sst_dump: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DWITH_LZ4=1 -DWITH_ZSTD=1 -DWITH_SNAPPY=1 -DCMAKE_TOOLCHAIN_FILE=/home/edvard/vcpkg/scripts/buildsystems/vcpkg.cmake .. && make -j8 sst_dump ldb
 
 import os, sys, subprocess
 from threading import Thread
@@ -11,7 +10,7 @@ def process_files(files, results, tindex):
     results[tindex] = [0] * 60
     for i in range(len(files)):
         filename = files[i]
-        output = subprocess.check_output(['../rocksdb/build/tools/sst_dump', '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        output = subprocess.check_output(['rocksdb/build/tools/sst_dump', '--file=' + str(filename), '--show_properties']).decode('utf-8')
         for line in output.split('\n'):
             if "column family ID" in line:
                 index = int(line.split(' ')[-1]) - 1
