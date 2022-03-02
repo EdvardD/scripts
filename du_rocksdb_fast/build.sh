@@ -4,9 +4,10 @@ pushd $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ ! -d vcpkg ]; then
   git clone https://github.com/microsoft/vcpkg.git
-  ./vcpkg/bootstrap-vcpkg.sh
-  ./vcpkg/vcpkg install zstd lz4 snappy
 fi
+
+./vcpkg/bootstrap-vcpkg.sh
+./vcpkg/vcpkg install zstd lz4 snappy
 
 if [ ! -d rocksdb ]; then
   git clone https://github.com/facebook/rocksdb.git

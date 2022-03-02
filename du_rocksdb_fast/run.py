@@ -5,12 +5,16 @@ from threading import Thread
 from time import sleep
 from pathlib import Path
 
+
+sst_dump = os.path.dirname(os.path.realpath(__file__)) + '/rocksdb/build/tools/sst_dump'
+print(sst_dump)
+
 def process_files(files, results, tindex):
     print("Got", len(files), "to process")
     results[tindex] = [0] * 60
     for i in range(len(files)):
         filename = files[i]
-        output = subprocess.check_output(['rocksdb/build/tools/sst_dump', '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        output = subprocess.check_output([sst_dump, '--file=' + str(filename), '--show_properties']).decode('utf-8')
         for line in output.split('\n'):
             if "column family ID" in line:
                 index = int(line.split(' ')[-1]) - 1
