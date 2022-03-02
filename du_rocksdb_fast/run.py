@@ -18,7 +18,7 @@ def process_files(files, sst_dump, results, tindex):
                 print("processed:", str(filename), "index:", index, "progress:", str(round(i / len(files) * 100, 1)) + "%")
 
 def main(rocksdb_data, sst_dump, thread_count):
-    files = [file for file in Path(rocksdb_data).glob("*.sst")]
+    files = [file for file in Path(rocksdb_data).expanduser().glob("*.sst")]
 
     threads = []
     results = [None] * thread_count
