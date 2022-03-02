@@ -1,4 +1,4 @@
-# Usage
+# Compute per column RocksDB size
 
 Build sst_dump:
 ```
