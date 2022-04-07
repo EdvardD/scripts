@@ -2,6 +2,7 @@
 
 Build sst_dump:
 ```
+sudo apt-get install libgflags-dev
 scripts/du_rocksdb_fast/build.sh
 ```
 
