@@ -7,7 +7,7 @@ with open(sys.argv[1]) as f:
         a.append(val)
 a.sort()
 
-ps = [50, 90, 95, 99, 100]
+ps = [1, 5, 10, 50, 90, 95, 99, 100]
 for p in ps:
-    idx = min(len(a) * 100 / p, len(a) - 1)
-    print(p, a[idx])
+    idx = min(len(a) * p // 100, len(a) - 1)
+    print("{0:3}p".format(p), a[idx])
