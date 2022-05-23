@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os, sys, subprocess, argparse, re
+import os, sys, subprocess, argparse, re, random
 from threading import Thread
 from time import sleep
 from pathlib import Path
@@ -15,7 +15,7 @@ def process_files(files, sst_dump, results, tindex):
             if "column family ID" in line:
                 index = int(line.split(' ')[-1]) - 1
                 results[tindex][index] += 1
-                print("processed:", str(filename), "index:", index, "progress:", str(round(i / len(files) * 100, 1)) + "%")
+                print("processed:", str(filename), "tindex:", tindex, "index:", index, "progress:", str(round(i / len(files) * 100, 1)) + "%")
 
 def main(strace_output, sst_dump, thread_count):
     files = []
@@ -25,6 +25,7 @@ def main(strace_output, sst_dump, thread_count):
             match = regex.match(line.strip())
             if match:
                 files.append(match.groups()[1])
+    random.shuffle(files)
 
     threads = []
     results = [None] * thread_count
