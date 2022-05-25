@@ -12,7 +12,11 @@ def process_files(files, sst_dump, results, tindex):
         results[tindex][i] = []
     for i in range(len(files)):
         filename = files[i]
-        output = subprocess.check_output([sst_dump, '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        try:
+            output = subprocess.check_output([sst_dump, '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        except:
+            print("can't get properties of file:", filename)
+            continue
         key_count = -1
         for line in output.split('\n'):
             if "entries:" in line:
