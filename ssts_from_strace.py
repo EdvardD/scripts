@@ -10,7 +10,11 @@ def process_files(files, sst_dump, results, tindex):
     results[tindex] = [0] * 60
     for i in range(len(files)):
         filename = files[i]
-        output = subprocess.check_output([sst_dump, '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        try:
+            output = subprocess.check_output([sst_dump, '--file=' + str(filename), '--show_properties']).decode('utf-8')
+        except:
+            print("can't get properties of file:", filename)
+            continue
         for line in output.split('\n'):
             if "column family ID" in line:
                 index = int(line.split(' ')[-1]) - 1
